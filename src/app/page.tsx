@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { prisma } from "../../lib/db";
+import Link from "next/link";
 
 export default async function Home() {
   const posts = await prisma.post.findMany();
@@ -9,8 +10,9 @@ export default async function Home() {
       <ul className="mt-5">
         {posts.map((post) => (
           <li key={post.id} className="border-b py-4">
-            <h2 className="text-2xl font-bold">{post.title}</h2>
-            <p className="text-gray-600">{post.content}</p>
+            <Link href={`/posts/${post.id}`} className="underline">
+              {post.title}
+            </Link>
           </li>
         ))}
       </ul>
